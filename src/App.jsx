@@ -4,6 +4,7 @@ import { useState } from "react";
 
 function App() {
   const [question, setquestion] = useState("");
+  const [answer, setanwer] = useState("");
 
   async function generateAnswer() {
     console.log("Loading");
@@ -22,24 +23,37 @@ function App() {
         ],
       },
     });
-    console.log(
-      response["data"]["candidates"][0]["content"]["parts"][0]["text"]
-    );
+    setanwer(response["data"]["candidates"][0]["content"]["parts"][0]["text"]);
   }
   return (
-    <>
-      <h1>AI CHATBOT</h1>
+    <div className="chatbot-container">
+      <h1 className="chatbot-heading">AI CHATBOT</h1>
       <textarea
+        className="chatbot-textarea"
         value={question}
         onChange={(e) => setquestion(e.target.value)}
-        name=""
-        id=""
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault(); // Prevent the default Enter key behavior (new line)
+            generateAnswer(); // Trigger the generateAnswer function on Enter
+          }
+        }}
+        placeholder="Type your question here..."
         cols={30}
         rows={10}
       ></textarea>
       <br />
-      <button onClick={generateAnswer}>generate Answer</button>
-    </>
+      <button className="chatbot-button" onClick={generateAnswer}>
+        Generate Answer
+      </button>
+
+      {/* Answer Box */}
+      {answer && (
+        <div className="answer-box">
+          <p>{answer}</p>
+        </div>
+      )}
+    </div>
   );
 }
 
