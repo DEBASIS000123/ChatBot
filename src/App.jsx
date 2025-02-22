@@ -9,7 +9,7 @@ function App() {
   async function generateAnswer() {
     console.log("Loading");
     const response = await axios({
-      url: "",
+      url: import.meta.env.VITE_API_URL,
       method: "post",
       data: {
         contents: [
