@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@mui/icons-material": "^6.3.0",
+    "axios": "^1.8.1",
     "chatbot": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
